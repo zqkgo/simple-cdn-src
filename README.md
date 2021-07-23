@@ -1,0 +1,1 @@
+just another *simple* cdn source server
