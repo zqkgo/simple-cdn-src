@@ -32,6 +32,10 @@ func main() {
 	}
 	hdrs := strings.Split(strings.TrimSpace(headers), "//")
 	http.Handle("/", respHeaderswrapper(http.FileServer(http.Dir(base)), hdrs))
+	http.HandleFunc("/301test", func(r http.ResponseWriter, req *http.Request) {
+		r.Header().Set("Location: ", "https://www.example.com/")
+		r.WriteHeader(http.StatusMovedPermanently)
+	})
 	log.Printf("serving %s on addr: http://%s\n", base, addr)
 	log.Fatal(http.ListenAndServe(addr, nil))
 }
